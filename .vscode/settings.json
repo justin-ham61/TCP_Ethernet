@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "global.h": "c",
+        "read.h": "c",
+        "write.h": "c",
+        "w5500.h": "c",
+        "config_menu.h": "c",
+        "*.asm": "c",
+        "spi.h": "c"
+    }
+}

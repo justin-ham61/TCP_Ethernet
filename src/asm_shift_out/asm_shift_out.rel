@@ -1,0 +1,12 @@
+XH3
+H 1 areas 1 global symbols
+S .__.ABS. Def000000
+A _CODE size E flags 0 addr 0
+T 00 00 00
+R 00 00 00 00
+T 00 00 00 74 00 78 08
+R 00 00 00 00
+T 00 00 04
+R 00 00 00 00
+T 00 00 04 33 D2 A7 45 A4 C2 A7 D8 F7 22
+R 00 00 00 00

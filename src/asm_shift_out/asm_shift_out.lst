@@ -1,0 +1,17 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051)               Page 1
+Hexadecimal [24-Bits]
+
+
+
+      000000                          1 asm_shift_out:
+      000000 74 00            [12]    2     MOV A, #0        ; Initialize 'data' (A register) to 0
+      000002 78 08            [12]    3     MOV R0, #8       ; Loop counter (8 iterations for 8 bits)
+                                      4     
+      000004                          5 SHIFT_LOOP:
+      000004 33               [12]    6     RLC A            ; Rotate left through carry (equivalent to <<= 1)
+      000005 D2 A7            [12]    7     SETB P2.7        ; Set P2.7 to 1
+      000007 45 A4            [12]    8     ORL A, P2.4      ; Bitwise OR A with P2.4 (data |= P2_4)
+      000009 C2 A7            [12]    9     CLR P2.7         ; Clear P2.7 (set to 0)
+      00000B D8 F7            [24]   10     DJNZ R0, SHIFT_LOOP   ; Decrement R0 and jump to SHIFT_LOOP if R0 != 0
+                                     11     
+      00000D 22               [24]   12     RET               ; Return from the function

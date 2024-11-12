@@ -1,0 +1,596 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (MINGW32)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module w5500
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _end
+                                     12 	.globl _begin
+                                     13 	.globl _asm_shift_in_2
+                                     14 	.globl _asm_shift_out_2
+                                     15 	.globl _shift_in
+                                     16 	.globl _CY
+                                     17 	.globl _AC
+                                     18 	.globl _F0
+                                     19 	.globl _RS1
+                                     20 	.globl _RS0
+                                     21 	.globl _OV
+                                     22 	.globl _F1
+                                     23 	.globl _P
+                                     24 	.globl _PS
+                                     25 	.globl _PT1
+                                     26 	.globl _PX1
+                                     27 	.globl _PT0
+                                     28 	.globl _PX0
+                                     29 	.globl _RD
+                                     30 	.globl _WR
+                                     31 	.globl _T1
+                                     32 	.globl _T0
+                                     33 	.globl _INT1
+                                     34 	.globl _INT0
+                                     35 	.globl _TXD
+                                     36 	.globl _RXD
+                                     37 	.globl _P3_7
+                                     38 	.globl _P3_6
+                                     39 	.globl _P3_5
+                                     40 	.globl _P3_4
+                                     41 	.globl _P3_3
+                                     42 	.globl _P3_2
+                                     43 	.globl _P3_1
+                                     44 	.globl _P3_0
+                                     45 	.globl _EA
+                                     46 	.globl _ES
+                                     47 	.globl _ET1
+                                     48 	.globl _EX1
+                                     49 	.globl _ET0
+                                     50 	.globl _EX0
+                                     51 	.globl _P2_7
+                                     52 	.globl _P2_6
+                                     53 	.globl _P2_5
+                                     54 	.globl _P2_4
+                                     55 	.globl _P2_3
+                                     56 	.globl _P2_2
+                                     57 	.globl _P2_1
+                                     58 	.globl _P2_0
+                                     59 	.globl _SM0
+                                     60 	.globl _SM1
+                                     61 	.globl _SM2
+                                     62 	.globl _REN
+                                     63 	.globl _TB8
+                                     64 	.globl _RB8
+                                     65 	.globl _TI
+                                     66 	.globl _RI
+                                     67 	.globl _P1_7
+                                     68 	.globl _P1_6
+                                     69 	.globl _P1_5
+                                     70 	.globl _P1_4
+                                     71 	.globl _P1_3
+                                     72 	.globl _P1_2
+                                     73 	.globl _P1_1
+                                     74 	.globl _P1_0
+                                     75 	.globl _TF1
+                                     76 	.globl _TR1
+                                     77 	.globl _TF0
+                                     78 	.globl _TR0
+                                     79 	.globl _IE1
+                                     80 	.globl _IT1
+                                     81 	.globl _IE0
+                                     82 	.globl _IT0
+                                     83 	.globl _P0_7
+                                     84 	.globl _P0_6
+                                     85 	.globl _P0_5
+                                     86 	.globl _P0_4
+                                     87 	.globl _P0_3
+                                     88 	.globl _P0_2
+                                     89 	.globl _P0_1
+                                     90 	.globl _P0_0
+                                     91 	.globl _B
+                                     92 	.globl _ACC
+                                     93 	.globl _PSW
+                                     94 	.globl _IP
+                                     95 	.globl _P3
+                                     96 	.globl _IE
+                                     97 	.globl _P2
+                                     98 	.globl _SBUF
+                                     99 	.globl _SCON
+                                    100 	.globl _P1
+                                    101 	.globl _TH1
+                                    102 	.globl _TH0
+                                    103 	.globl _TL1
+                                    104 	.globl _TL0
+                                    105 	.globl _TMOD
+                                    106 	.globl _TCON
+                                    107 	.globl _PCON
+                                    108 	.globl _DPH
+                                    109 	.globl _DPL
+                                    110 	.globl _SP
+                                    111 	.globl _P0
+                                    112 	.globl _set_mac_adr_PARM_6
+                                    113 	.globl _set_mac_adr_PARM_5
+                                    114 	.globl _set_mac_adr_PARM_4
+                                    115 	.globl _set_mac_adr_PARM_3
+                                    116 	.globl _set_mac_adr_PARM_2
+                                    117 	.globl _get_2_PARM_2
+                                    118 	.globl _send_4_PARM_6
+                                    119 	.globl _send_4_PARM_5
+                                    120 	.globl _send_4_PARM_4
+                                    121 	.globl _send_4_PARM_3
+                                    122 	.globl _send_4_PARM_2
+                                    123 	.globl _send_2_PARM_4
+                                    124 	.globl _send_2_PARM_3
+                                    125 	.globl _send_2_PARM_2
+                                    126 	.globl _send_1_PARM_3
+                                    127 	.globl _send_1_PARM_2
+                                    128 	.globl _send_1
+                                    129 	.globl _send_2
+                                    130 	.globl _send_4
+                                    131 	.globl _get_2
+                                    132 	.globl _set_mac_adr
+                                    133 ;--------------------------------------------------------
+                                    134 ; special function registers
+                                    135 ;--------------------------------------------------------
+                                    136 	.area RSEG    (ABS,DATA)
+      000000                        137 	.org 0x0000
+                           000080   138 _P0	=	0x0080
+                           000081   139 _SP	=	0x0081
+                           000082   140 _DPL	=	0x0082
+                           000083   141 _DPH	=	0x0083
+                           000087   142 _PCON	=	0x0087
+                           000088   143 _TCON	=	0x0088
+                           000089   144 _TMOD	=	0x0089
+                           00008A   145 _TL0	=	0x008a
+                           00008B   146 _TL1	=	0x008b
+                           00008C   147 _TH0	=	0x008c
+                           00008D   148 _TH1	=	0x008d
+                           000090   149 _P1	=	0x0090
+                           000098   150 _SCON	=	0x0098
+                           000099   151 _SBUF	=	0x0099
+                           0000A0   152 _P2	=	0x00a0
+                           0000A8   153 _IE	=	0x00a8
+                           0000B0   154 _P3	=	0x00b0
+                           0000B8   155 _IP	=	0x00b8
+                           0000D0   156 _PSW	=	0x00d0
+                           0000E0   157 _ACC	=	0x00e0
+                           0000F0   158 _B	=	0x00f0
+                                    159 ;--------------------------------------------------------
+                                    160 ; special function bits
+                                    161 ;--------------------------------------------------------
+                                    162 	.area RSEG    (ABS,DATA)
+      000000                        163 	.org 0x0000
+                           000080   164 _P0_0	=	0x0080
+                           000081   165 _P0_1	=	0x0081
+                           000082   166 _P0_2	=	0x0082
+                           000083   167 _P0_3	=	0x0083
+                           000084   168 _P0_4	=	0x0084
+                           000085   169 _P0_5	=	0x0085
+                           000086   170 _P0_6	=	0x0086
+                           000087   171 _P0_7	=	0x0087
+                           000088   172 _IT0	=	0x0088
+                           000089   173 _IE0	=	0x0089
+                           00008A   174 _IT1	=	0x008a
+                           00008B   175 _IE1	=	0x008b
+                           00008C   176 _TR0	=	0x008c
+                           00008D   177 _TF0	=	0x008d
+                           00008E   178 _TR1	=	0x008e
+                           00008F   179 _TF1	=	0x008f
+                           000090   180 _P1_0	=	0x0090
+                           000091   181 _P1_1	=	0x0091
+                           000092   182 _P1_2	=	0x0092
+                           000093   183 _P1_3	=	0x0093
+                           000094   184 _P1_4	=	0x0094
+                           000095   185 _P1_5	=	0x0095
+                           000096   186 _P1_6	=	0x0096
+                           000097   187 _P1_7	=	0x0097
+                           000098   188 _RI	=	0x0098
+                           000099   189 _TI	=	0x0099
+                           00009A   190 _RB8	=	0x009a
+                           00009B   191 _TB8	=	0x009b
+                           00009C   192 _REN	=	0x009c
+                           00009D   193 _SM2	=	0x009d
+                           00009E   194 _SM1	=	0x009e
+                           00009F   195 _SM0	=	0x009f
+                           0000A0   196 _P2_0	=	0x00a0
+                           0000A1   197 _P2_1	=	0x00a1
+                           0000A2   198 _P2_2	=	0x00a2
+                           0000A3   199 _P2_3	=	0x00a3
+                           0000A4   200 _P2_4	=	0x00a4
+                           0000A5   201 _P2_5	=	0x00a5
+                           0000A6   202 _P2_6	=	0x00a6
+                           0000A7   203 _P2_7	=	0x00a7
+                           0000A8   204 _EX0	=	0x00a8
+                           0000A9   205 _ET0	=	0x00a9
+                           0000AA   206 _EX1	=	0x00aa
+                           0000AB   207 _ET1	=	0x00ab
+                           0000AC   208 _ES	=	0x00ac
+                           0000AF   209 _EA	=	0x00af
+                           0000B0   210 _P3_0	=	0x00b0
+                           0000B1   211 _P3_1	=	0x00b1
+                           0000B2   212 _P3_2	=	0x00b2
+                           0000B3   213 _P3_3	=	0x00b3
+                           0000B4   214 _P3_4	=	0x00b4
+                           0000B5   215 _P3_5	=	0x00b5
+                           0000B6   216 _P3_6	=	0x00b6
+                           0000B7   217 _P3_7	=	0x00b7
+                           0000B0   218 _RXD	=	0x00b0
+                           0000B1   219 _TXD	=	0x00b1
+                           0000B2   220 _INT0	=	0x00b2
+                           0000B3   221 _INT1	=	0x00b3
+                           0000B4   222 _T0	=	0x00b4
+                           0000B5   223 _T1	=	0x00b5
+                           0000B6   224 _WR	=	0x00b6
+                           0000B7   225 _RD	=	0x00b7
+                           0000B8   226 _PX0	=	0x00b8
+                           0000B9   227 _PT0	=	0x00b9
+                           0000BA   228 _PX1	=	0x00ba
+                           0000BB   229 _PT1	=	0x00bb
+                           0000BC   230 _PS	=	0x00bc
+                           0000D0   231 _P	=	0x00d0
+                           0000D1   232 _F1	=	0x00d1
+                           0000D2   233 _OV	=	0x00d2
+                           0000D3   234 _RS0	=	0x00d3
+                           0000D4   235 _RS1	=	0x00d4
+                           0000D5   236 _F0	=	0x00d5
+                           0000D6   237 _AC	=	0x00d6
+                           0000D7   238 _CY	=	0x00d7
+                                    239 ;--------------------------------------------------------
+                                    240 ; overlayable register banks
+                                    241 ;--------------------------------------------------------
+                                    242 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        243 	.ds 8
+                                    244 ;--------------------------------------------------------
+                                    245 ; internal ram data
+                                    246 ;--------------------------------------------------------
+                                    247 	.area DSEG    (DATA)
+      000000                        248 _send_1_PARM_2:
+      000000                        249 	.ds 2
+      000002                        250 _send_1_PARM_3:
+      000002                        251 	.ds 2
+      000004                        252 _send_2_PARM_2:
+      000004                        253 	.ds 2
+      000006                        254 _send_2_PARM_3:
+      000006                        255 	.ds 2
+      000008                        256 _send_2_PARM_4:
+      000008                        257 	.ds 2
+      00000A                        258 _send_4_PARM_2:
+      00000A                        259 	.ds 2
+      00000C                        260 _send_4_PARM_3:
+      00000C                        261 	.ds 2
+      00000E                        262 _send_4_PARM_4:
+      00000E                        263 	.ds 2
+      000010                        264 _send_4_PARM_5:
+      000010                        265 	.ds 2
+      000012                        266 _send_4_PARM_6:
+      000012                        267 	.ds 2
+      000014                        268 _get_2_PARM_2:
+      000014                        269 	.ds 2
+      000016                        270 _set_mac_adr_PARM_2:
+      000016                        271 	.ds 2
+      000018                        272 _set_mac_adr_PARM_3:
+      000018                        273 	.ds 2
+      00001A                        274 _set_mac_adr_PARM_4:
+      00001A                        275 	.ds 2
+      00001C                        276 _set_mac_adr_PARM_5:
+      00001C                        277 	.ds 2
+      00001E                        278 _set_mac_adr_PARM_6:
+      00001E                        279 	.ds 2
+                                    280 ;--------------------------------------------------------
+                                    281 ; overlayable items in internal ram
+                                    282 ;--------------------------------------------------------
+                                    283 ;--------------------------------------------------------
+                                    284 ; indirectly addressable internal ram data
+                                    285 ;--------------------------------------------------------
+                                    286 	.area ISEG    (DATA)
+                                    287 ;--------------------------------------------------------
+                                    288 ; absolute internal ram data
+                                    289 ;--------------------------------------------------------
+                                    290 	.area IABS    (ABS,DATA)
+                                    291 	.area IABS    (ABS,DATA)
+                                    292 ;--------------------------------------------------------
+                                    293 ; bit data
+                                    294 ;--------------------------------------------------------
+                                    295 	.area BSEG    (BIT)
+                                    296 ;--------------------------------------------------------
+                                    297 ; paged external ram data
+                                    298 ;--------------------------------------------------------
+                                    299 	.area PSEG    (PAG,XDATA)
+                                    300 ;--------------------------------------------------------
+                                    301 ; uninitialized external ram data
+                                    302 ;--------------------------------------------------------
+                                    303 	.area XSEG    (XDATA)
+                                    304 ;--------------------------------------------------------
+                                    305 ; absolute external ram data
+                                    306 ;--------------------------------------------------------
+                                    307 	.area XABS    (ABS,XDATA)
+                                    308 ;--------------------------------------------------------
+                                    309 ; initialized external ram data
+                                    310 ;--------------------------------------------------------
+                                    311 	.area XISEG   (XDATA)
+                                    312 	.area HOME    (CODE)
+                                    313 	.area GSINIT0 (CODE)
+                                    314 	.area GSINIT1 (CODE)
+                                    315 	.area GSINIT2 (CODE)
+                                    316 	.area GSINIT3 (CODE)
+                                    317 	.area GSINIT4 (CODE)
+                                    318 	.area GSINIT5 (CODE)
+                                    319 	.area GSINIT  (CODE)
+                                    320 	.area GSFINAL (CODE)
+                                    321 	.area CSEG    (CODE)
+                                    322 ;--------------------------------------------------------
+                                    323 ; global & static initialisations
+                                    324 ;--------------------------------------------------------
+                                    325 	.area HOME    (CODE)
+                                    326 	.area GSINIT  (CODE)
+                                    327 	.area GSFINAL (CODE)
+                                    328 	.area GSINIT  (CODE)
+                                    329 ;--------------------------------------------------------
+                                    330 ; Home
+                                    331 ;--------------------------------------------------------
+                                    332 	.area HOME    (CODE)
+                                    333 	.area HOME    (CODE)
+                                    334 ;--------------------------------------------------------
+                                    335 ; code
+                                    336 ;--------------------------------------------------------
+                                    337 	.area CSEG    (CODE)
+                                    338 ;------------------------------------------------------------
+                                    339 ;Allocation info for local variables in function 'send_1'
+                                    340 ;------------------------------------------------------------
+                                    341 ;cntl                      Allocated with name '_send_1_PARM_2'
+                                    342 ;w                         Allocated with name '_send_1_PARM_3'
+                                    343 ;adr                       Allocated to registers r6 r7 
+                                    344 ;------------------------------------------------------------
+                                    345 ;	.\w5500.c:8: void send_1(int adr, int cntl, int w){
+                                    346 ;	-----------------------------------------
+                                    347 ;	 function send_1
+                                    348 ;	-----------------------------------------
+      000000                        349 _send_1:
+                           000007   350 	ar7 = 0x07
+                           000006   351 	ar6 = 0x06
+                           000005   352 	ar5 = 0x05
+                           000004   353 	ar4 = 0x04
+                           000003   354 	ar3 = 0x03
+                           000002   355 	ar2 = 0x02
+                           000001   356 	ar1 = 0x01
+                           000000   357 	ar0 = 0x00
+      000000 AE 82            [24]  358 	mov	r6, dpl
+      000002 AF 83            [24]  359 	mov	r7, dph
+                                    360 ;	.\w5500.c:9: begin();
+      000004 C0 07            [24]  361 	push	ar7
+      000006 C0 06            [24]  362 	push	ar6
+      000008 12r00r00         [24]  363 	lcall	_begin
+      00000B D0 06            [24]  364 	pop	ar6
+      00000D D0 07            [24]  365 	pop	ar7
+                                    366 ;	.\w5500.c:10: asm_shift_in_2(adr >> 8);
+      00000F 8F 82            [24]  367 	mov	dpl,r7
+      000011 C0 07            [24]  368 	push	ar7
+      000013 C0 06            [24]  369 	push	ar6
+      000015 12r00r00         [24]  370 	lcall	_asm_shift_in_2
+      000018 D0 06            [24]  371 	pop	ar6
+      00001A D0 07            [24]  372 	pop	ar7
+                                    373 ;	.\w5500.c:11: asm_shift_in_2(adr & 0x00FF);
+      00001C 8E 82            [24]  374 	mov	dpl,r6
+      00001E 12r00r00         [24]  375 	lcall	_asm_shift_in_2
+                                    376 ;	.\w5500.c:12: asm_shift_in_2(cntl);
+      000021 85*00 82         [24]  377 	mov	dpl,_send_1_PARM_2
+      000024 12r00r00         [24]  378 	lcall	_asm_shift_in_2
+                                    379 ;	.\w5500.c:13: asm_shift_in_2(w);
+      000027 85*02 82         [24]  380 	mov	dpl,_send_1_PARM_3
+      00002A 12r00r00         [24]  381 	lcall	_asm_shift_in_2
+                                    382 ;	.\w5500.c:20: end();
+                                    383 ;	.\w5500.c:21: }
+      00002D 02r00r00         [24]  384 	ljmp	_end
+                                    385 ;------------------------------------------------------------
+                                    386 ;Allocation info for local variables in function 'send_2'
+                                    387 ;------------------------------------------------------------
+                                    388 ;cntl                      Allocated with name '_send_2_PARM_2'
+                                    389 ;w                         Allocated with name '_send_2_PARM_3'
+                                    390 ;x                         Allocated with name '_send_2_PARM_4'
+                                    391 ;adr                       Allocated to registers r6 r7 
+                                    392 ;------------------------------------------------------------
+                                    393 ;	.\w5500.c:23: void send_2(int adr, int cntl, int w, int x){
+                                    394 ;	-----------------------------------------
+                                    395 ;	 function send_2
+                                    396 ;	-----------------------------------------
+      000030                        397 _send_2:
+      000030 AE 82            [24]  398 	mov	r6, dpl
+      000032 AF 83            [24]  399 	mov	r7, dph
+                                    400 ;	.\w5500.c:24: begin();
+      000034 C0 07            [24]  401 	push	ar7
+      000036 C0 06            [24]  402 	push	ar6
+      000038 12r00r00         [24]  403 	lcall	_begin
+      00003B D0 06            [24]  404 	pop	ar6
+      00003D D0 07            [24]  405 	pop	ar7
+                                    406 ;	.\w5500.c:25: asm_shift_in_2(adr >> 8);
+      00003F 8F 82            [24]  407 	mov	dpl,r7
+      000041 C0 07            [24]  408 	push	ar7
+      000043 C0 06            [24]  409 	push	ar6
+      000045 12r00r00         [24]  410 	lcall	_asm_shift_in_2
+      000048 D0 06            [24]  411 	pop	ar6
+      00004A D0 07            [24]  412 	pop	ar7
+                                    413 ;	.\w5500.c:26: asm_shift_in_2(adr & 0x00FF);
+      00004C 8E 82            [24]  414 	mov	dpl,r6
+      00004E 12r00r00         [24]  415 	lcall	_asm_shift_in_2
+                                    416 ;	.\w5500.c:27: asm_shift_in_2(cntl);
+      000051 85*04 82         [24]  417 	mov	dpl,_send_2_PARM_2
+      000054 12r00r00         [24]  418 	lcall	_asm_shift_in_2
+                                    419 ;	.\w5500.c:28: asm_shift_in_2(w);
+      000057 85*06 82         [24]  420 	mov	dpl,_send_2_PARM_3
+      00005A 12r00r00         [24]  421 	lcall	_asm_shift_in_2
+                                    422 ;	.\w5500.c:29: asm_shift_in_2(x);
+      00005D 85*08 82         [24]  423 	mov	dpl,_send_2_PARM_4
+      000060 12r00r00         [24]  424 	lcall	_asm_shift_in_2
+                                    425 ;	.\w5500.c:36: end();
+                                    426 ;	.\w5500.c:37: }
+      000063 02r00r00         [24]  427 	ljmp	_end
+                                    428 ;------------------------------------------------------------
+                                    429 ;Allocation info for local variables in function 'send_4'
+                                    430 ;------------------------------------------------------------
+                                    431 ;cntl                      Allocated with name '_send_4_PARM_2'
+                                    432 ;w                         Allocated with name '_send_4_PARM_3'
+                                    433 ;x                         Allocated with name '_send_4_PARM_4'
+                                    434 ;y                         Allocated with name '_send_4_PARM_5'
+                                    435 ;z                         Allocated with name '_send_4_PARM_6'
+                                    436 ;adr                       Allocated to registers r6 r7 
+                                    437 ;------------------------------------------------------------
+                                    438 ;	.\w5500.c:39: void send_4(int adr, int cntl, int w, int x, int y, int z){
+                                    439 ;	-----------------------------------------
+                                    440 ;	 function send_4
+                                    441 ;	-----------------------------------------
+      000066                        442 _send_4:
+      000066 AE 82            [24]  443 	mov	r6, dpl
+      000068 AF 83            [24]  444 	mov	r7, dph
+                                    445 ;	.\w5500.c:40: begin();
+      00006A C0 07            [24]  446 	push	ar7
+      00006C C0 06            [24]  447 	push	ar6
+      00006E 12r00r00         [24]  448 	lcall	_begin
+      000071 D0 06            [24]  449 	pop	ar6
+      000073 D0 07            [24]  450 	pop	ar7
+                                    451 ;	.\w5500.c:41: asm_shift_in_2(adr >> 8);
+      000075 8F 82            [24]  452 	mov	dpl,r7
+      000077 C0 07            [24]  453 	push	ar7
+      000079 C0 06            [24]  454 	push	ar6
+      00007B 12r00r00         [24]  455 	lcall	_asm_shift_in_2
+      00007E D0 06            [24]  456 	pop	ar6
+      000080 D0 07            [24]  457 	pop	ar7
+                                    458 ;	.\w5500.c:42: asm_shift_in_2(adr & 0x00FF);
+      000082 8E 82            [24]  459 	mov	dpl,r6
+      000084 12r00r00         [24]  460 	lcall	_asm_shift_in_2
+                                    461 ;	.\w5500.c:43: asm_shift_in_2(cntl);
+      000087 85*0A 82         [24]  462 	mov	dpl,_send_4_PARM_2
+      00008A 12r00r00         [24]  463 	lcall	_asm_shift_in_2
+                                    464 ;	.\w5500.c:44: asm_shift_in_2(w);
+      00008D 85*0C 82         [24]  465 	mov	dpl,_send_4_PARM_3
+      000090 12r00r00         [24]  466 	lcall	_asm_shift_in_2
+                                    467 ;	.\w5500.c:45: asm_shift_in_2(x);
+      000093 85*0E 82         [24]  468 	mov	dpl,_send_4_PARM_4
+      000096 12r00r00         [24]  469 	lcall	_asm_shift_in_2
+                                    470 ;	.\w5500.c:46: asm_shift_in_2(y);
+      000099 85*10 82         [24]  471 	mov	dpl,_send_4_PARM_5
+      00009C 12r00r00         [24]  472 	lcall	_asm_shift_in_2
+                                    473 ;	.\w5500.c:47: asm_shift_in_2(z);
+      00009F 85*12 82         [24]  474 	mov	dpl,_send_4_PARM_6
+      0000A2 12r00r00         [24]  475 	lcall	_asm_shift_in_2
+                                    476 ;	.\w5500.c:56: end();
+                                    477 ;	.\w5500.c:57: }
+      0000A5 02r00r00         [24]  478 	ljmp	_end
+                                    479 ;------------------------------------------------------------
+                                    480 ;Allocation info for local variables in function 'get_2'
+                                    481 ;------------------------------------------------------------
+                                    482 ;cntl                      Allocated with name '_get_2_PARM_2'
+                                    483 ;adr                       Allocated to registers r6 r7 
+                                    484 ;ret                       Allocated to registers r7 r6 
+                                    485 ;------------------------------------------------------------
+                                    486 ;	.\w5500.c:59: int get_2(int adr, int cntl){
+                                    487 ;	-----------------------------------------
+                                    488 ;	 function get_2
+                                    489 ;	-----------------------------------------
+      0000A8                        490 _get_2:
+      0000A8 AE 82            [24]  491 	mov	r6, dpl
+      0000AA AF 83            [24]  492 	mov	r7, dph
+                                    493 ;	.\w5500.c:61: begin();
+      0000AC C0 07            [24]  494 	push	ar7
+      0000AE C0 06            [24]  495 	push	ar6
+      0000B0 12r00r00         [24]  496 	lcall	_begin
+      0000B3 D0 06            [24]  497 	pop	ar6
+      0000B5 D0 07            [24]  498 	pop	ar7
+                                    499 ;	.\w5500.c:62: asm_shift_in_2(adr>>8);
+      0000B7 8F 82            [24]  500 	mov	dpl,r7
+      0000B9 C0 07            [24]  501 	push	ar7
+      0000BB C0 06            [24]  502 	push	ar6
+      0000BD 12r00r00         [24]  503 	lcall	_asm_shift_in_2
+      0000C0 D0 06            [24]  504 	pop	ar6
+      0000C2 D0 07            [24]  505 	pop	ar7
+                                    506 ;	.\w5500.c:63: asm_shift_in_2(adr&0x00FF);
+      0000C4 8E 82            [24]  507 	mov	dpl,r6
+      0000C6 12r00r00         [24]  508 	lcall	_asm_shift_in_2
+                                    509 ;	.\w5500.c:64: asm_shift_in_2(cntl);
+      0000C9 85*14 82         [24]  510 	mov	dpl,_get_2_PARM_2
+      0000CC 12r00r00         [24]  511 	lcall	_asm_shift_in_2
+                                    512 ;	.\w5500.c:65: ret = asm_shift_out_2();
+      0000CF 12r00r00         [24]  513 	lcall	_asm_shift_out_2
+                                    514 ;	.\w5500.c:66: ret<<=8;
+      0000D2 AE 82            [24]  515 	mov	r6,dpl
+      0000D4 7F 00            [12]  516 	mov	r7,#0x00
+                                    517 ;	.\w5500.c:67: ret |= asm_shift_out_2();
+      0000D6 C0 07            [24]  518 	push	ar7
+      0000D8 C0 06            [24]  519 	push	ar6
+      0000DA 12r00r00         [24]  520 	lcall	_asm_shift_out_2
+      0000DD AD 82            [24]  521 	mov	r5, dpl
+      0000DF D0 06            [24]  522 	pop	ar6
+      0000E1 D0 07            [24]  523 	pop	ar7
+      0000E3 7C 00            [12]  524 	mov	r4,#0x00
+      0000E5 ED               [12]  525 	mov	a,r5
+      0000E6 42 07            [12]  526 	orl	ar7,a
+      0000E8 EC               [12]  527 	mov	a,r4
+      0000E9 42 06            [12]  528 	orl	ar6,a
+                                    529 ;	.\w5500.c:68: end();
+      0000EB C0 07            [24]  530 	push	ar7
+      0000ED C0 06            [24]  531 	push	ar6
+      0000EF 12r00r00         [24]  532 	lcall	_end
+      0000F2 D0 06            [24]  533 	pop	ar6
+      0000F4 D0 07            [24]  534 	pop	ar7
+                                    535 ;	.\w5500.c:69: return ret;
+      0000F6 8F 82            [24]  536 	mov	dpl, r7
+      0000F8 8E 83            [24]  537 	mov	dph, r6
+                                    538 ;	.\w5500.c:70: }
+      0000FA 22               [24]  539 	ret
+                                    540 ;------------------------------------------------------------
+                                    541 ;Allocation info for local variables in function 'set_mac_adr'
+                                    542 ;------------------------------------------------------------
+                                    543 ;mac2                      Allocated with name '_set_mac_adr_PARM_2'
+                                    544 ;mac3                      Allocated with name '_set_mac_adr_PARM_3'
+                                    545 ;mac4                      Allocated with name '_set_mac_adr_PARM_4'
+                                    546 ;mac5                      Allocated with name '_set_mac_adr_PARM_5'
+                                    547 ;mac6                      Allocated with name '_set_mac_adr_PARM_6'
+                                    548 ;mac1                      Allocated to registers r6 r7 
+                                    549 ;------------------------------------------------------------
+                                    550 ;	.\w5500.c:72: void set_mac_adr(int mac1, int mac2, int mac3, int mac4, int mac5, int mac6){
+                                    551 ;	-----------------------------------------
+                                    552 ;	 function set_mac_adr
+                                    553 ;	-----------------------------------------
+      0000FB                        554 _set_mac_adr:
+      0000FB AE 82            [24]  555 	mov	r6, dpl
+      0000FD AF 83            [24]  556 	mov	r7, dph
+                                    557 ;	.\w5500.c:73: begin();
+      0000FF C0 07            [24]  558 	push	ar7
+      000101 C0 06            [24]  559 	push	ar6
+      000103 12r00r00         [24]  560 	lcall	_begin
+                                    561 ;	.\w5500.c:74: shift_in(0x00);
+      000106 75 82 00         [24]  562 	mov	dpl, #0x00
+      000109 12r00r00         [24]  563 	lcall	_shift_in
+                                    564 ;	.\w5500.c:75: shift_in(0x09);
+      00010C 75 82 09         [24]  565 	mov	dpl, #0x09
+      00010F 12r00r00         [24]  566 	lcall	_shift_in
+                                    567 ;	.\w5500.c:76: shift_in(0x04);
+      000112 75 82 04         [24]  568 	mov	dpl, #0x04
+      000115 12r00r00         [24]  569 	lcall	_shift_in
+      000118 D0 06            [24]  570 	pop	ar6
+      00011A D0 07            [24]  571 	pop	ar7
+                                    572 ;	.\w5500.c:77: shift_in(mac1);
+      00011C 8E 82            [24]  573 	mov	dpl,r6
+      00011E 12r00r00         [24]  574 	lcall	_shift_in
+                                    575 ;	.\w5500.c:78: shift_in(mac2);
+      000121 85*16 82         [24]  576 	mov	dpl,_set_mac_adr_PARM_2
+      000124 12r00r00         [24]  577 	lcall	_shift_in
+                                    578 ;	.\w5500.c:79: shift_in(mac3);
+      000127 85*18 82         [24]  579 	mov	dpl,_set_mac_adr_PARM_3
+      00012A 12r00r00         [24]  580 	lcall	_shift_in
+                                    581 ;	.\w5500.c:80: shift_in(mac4);
+      00012D 85*1A 82         [24]  582 	mov	dpl,_set_mac_adr_PARM_4
+      000130 12r00r00         [24]  583 	lcall	_shift_in
+                                    584 ;	.\w5500.c:81: shift_in(mac5);
+      000133 85*1C 82         [24]  585 	mov	dpl,_set_mac_adr_PARM_5
+      000136 12r00r00         [24]  586 	lcall	_shift_in
+                                    587 ;	.\w5500.c:82: shift_in(mac6);
+      000139 85*1E 82         [24]  588 	mov	dpl,_set_mac_adr_PARM_6
+      00013C 12r00r00         [24]  589 	lcall	_shift_in
+                                    590 ;	.\w5500.c:84: end();
+                                    591 ;	.\w5500.c:85: }
+      00013F 02r00r00         [24]  592 	ljmp	_end
+                                    593 	.area CSEG    (CODE)
+                                    594 	.area CONST   (CODE)
+                                    595 	.area XINIT   (CODE)
+                                    596 	.area CABS    (ABS,CODE)
